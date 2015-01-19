@@ -13,7 +13,6 @@ module.exports = (function(){
 	// Cleanup before exit
 	.on('exit', function(){
 		openStreams.forEach(function(stream){
-			console.log("Closing stream", stream);
 			stream.end();
 		});
 	});
@@ -73,6 +72,23 @@ module.exports = (function(){
 		// Open stream
 		openStreams.push(this.stream = fs.createWriteStream(fileName, { flags: 'a' }));
 	}
+
+
+	Logger.prototype.createType = function(){
+		var stream = this.stream;
+		for( var i = 0; i < arguments.length; i++ ){
+			var arg = arguments[i];
+			if( typeof arg === "string" ){
+				this[arg] = function(){
+					logToStream(stream, arg.toUpperCase(), arguments);
+				};
+			}
+		}
+	};
+
+	Logger.prototype.log = function(){
+		logToStream(this.stream, "LOG", arguments);
+	};
 
 	Logger.prototype.info = function(){
 		logToStream(this.stream, "INFO", arguments);
