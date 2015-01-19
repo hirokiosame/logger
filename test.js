@@ -9,4 +9,5 @@ log.createType("stdout", "stderr");
 log.info("Hello?", { "1": "2" });
 
 log.stdout("stdout");
+log.close();
 log.stderr("stderr");

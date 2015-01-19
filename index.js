@@ -84,6 +84,10 @@ module.exports = (function(){
 			if( typeof arg === "string" ){
 				(function(arg){
 					self[arg] = function(){
+
+						// If already ended, reject
+						if( self.stream._writableState.ended === true ){ return false; }
+
 						logToStream(self.stream, arg.toUpperCase(), arguments);
 					};
 				})(arg);
@@ -92,15 +96,35 @@ module.exports = (function(){
 	};
 
 	Logger.prototype.log = function(){
+
+		// If already ended, reject
+		if( this.stream._writableState.ended === true ){ return false; }
+
 		logToStream(this.stream, "LOG", arguments);
 	};
 
 	Logger.prototype.info = function(){
+
+		// If already ended, reject
+		if( this.stream._writableState.ended === true ){ return false; }
+
 		logToStream(this.stream, "INFO", arguments);
 	};
 
 	Logger.prototype.error = function(){
+
+		// If already ended, reject
+		if( this.stream._writableState.ended === true ){ return false; }
+
 		logToStream(this.stream, "ERROR", arguments);
+	};
+
+	Logger.prototype.close = function(){
+
+		// If already ended, reject
+		if( this.stream._writableState.ended === true ){ return false; }
+
+		this.stream.end();
 	};
 
 
