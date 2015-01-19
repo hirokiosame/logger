@@ -20,12 +20,15 @@ module.exports = (function(){
 
 	function getDate(){
 		var date = new Date();
-		return	date.getFullYear() +
-				"/" + (date.getMonth() + 1) +
-				"/" + date.getDate() +
-				" " + date.getHours() +
-				":" + date.getMinutes() +
-				":" + date.getSeconds();
+
+		var str =	date.getFullYear() +
+					"/" + (date.getMonth() + 1) +
+					"/" + date.getDate() +
+					" " + date.getHours() +
+					":" + date.getMinutes() +
+					":" + date.getSeconds();
+
+		return str + "     ".substr(0, 19);
 	}
 
 	function parseArg(arg){
@@ -54,7 +57,7 @@ module.exports = (function(){
 
 	function logToStream(stream, type, args){
 
-		var message = getDate() + "\t[" + type + "]";
+		var message = getDate() + "[" + type + "]";
 
 		for( var i = 0; i < args.length; i++ ){
 			message += "\t" + parseArg(args[i]);
