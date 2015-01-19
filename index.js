@@ -75,13 +75,13 @@ module.exports = (function(){
 
 
 	Logger.prototype.createType = function(){
-		var stream = this.stream;
+		var self = this;
 		for( var i = 0; i < arguments.length; i++ ){
 			var arg = arguments[i];
 			if( typeof arg === "string" ){
 				(function(arg){
-					this[arg] = function(){
-						logToStream(stream, arg.toUpperCase(), arguments);
+					self[arg] = function(){
+						logToStream(self.stream, arg.toUpperCase(), arguments);
 					};
 				})(arg);
 			}
