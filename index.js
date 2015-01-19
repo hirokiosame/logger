@@ -79,9 +79,11 @@ module.exports = (function(){
 		for( var i = 0; i < arguments.length; i++ ){
 			var arg = arguments[i];
 			if( typeof arg === "string" ){
-				this[arg] = function(){
-					logToStream(stream, arg.toUpperCase(), arguments);
-				};
+				(function(arg){
+					this[arg] = function(){
+						logToStream(stream, arg.toUpperCase(), arguments);
+					};
+				})(arg);
 			}
 		}
 	};
