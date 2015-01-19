@@ -28,7 +28,7 @@ module.exports = (function(){
 					":" + date.getMinutes() +
 					":" + date.getSeconds();
 
-		return str + "     ".slice(0, 21);
+		return (str + "     ").slice(0, 21);
 	}
 
 	function parseArg(arg){
